@@ -1,0 +1,43 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f4f4;
+}
+
+header{
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+width:80%;
+margin:20px auto;
+padding:25px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.card h2{
+margin-bottom:15px;
+}
+
+.card ul{
+padding-left:20px;
+}
+
+.card li{
+margin:8px 0;
+}
+
+.footer{
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
+margin-top:30px;
+}
