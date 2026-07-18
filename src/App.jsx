@@ -1,39 +1,23 @@
-import Header from "./components/Header";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Footer from "./components/Footer";
+import { Routes, Route } from "react-router-dom";
+
+import NavBar from "./components/NavBar";
+
+import Home from "./pages/Home";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
 
 function App() {
-
-  const skills = [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Git",
-    "GitHub"
-  ];
-
   return (
     <div>
+      <NavBar />
 
-      <Header
-        title="Ayush Vyas"
-        themeColor="#2563eb"
-      />
-
-      <About
-        name="Ayush Vyas"
-      />
-
-      <Skills
-        skillList={skills}
-      />
-
-      <Footer
-        email="ayush@example.com"
-      />
-
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
