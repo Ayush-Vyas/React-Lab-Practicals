@@ -1,17 +1,21 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function NavBar() {
   return (
     <nav className="navbar">
-      <h2>Student Portfolio</h2>
+
+      <h2>🚀 Portfolio</h2>
 
       <div>
-        <Link to="/">Home</Link>
 
-        <Link to="/projects">Projects</Link>
+        <NavLink to="/">Home</NavLink>
 
-        <Link to="/contact">Contact</Link>
+        <NavLink to="/projects">Projects</NavLink>
+
+        <NavLink to="/contact">Contact</NavLink>
+
       </div>
+
     </nav>
   );
 }
