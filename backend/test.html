@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MongoDB Test</title>
+</head>
+<body>
+
+<button onclick="createTask()">Create Task</button>
+<button onclick="getTasks()">Get Tasks</button>
+
+<pre id="output"></pre>
+
+<script>
+
+async function createTask() {
+    try {
+        const response = await fetch("http://localhost:5000/tasks", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: "Learn MongoDB",
+                description: "Week 5",
+                priority: "high"
+            })
+        });
+
+        const data = await response.json();
+
+        document.getElementById("output").textContent =
+            JSON.stringify(data, null, 2);
+
+    } catch (error) {
+        document.getElementById("output").textContent =
+            error.message;
+        console.error(error);
+    }
+}
+
+async function getTasks(){
+
+    const response = await fetch("http://localhost:5000/tasks");
+
+    const data = await response.json();
+
+    document.getElementById("output").textContent =
+    JSON.stringify(data,null,2);
+
+}
+
+</script>
+
+</body>
+</html>

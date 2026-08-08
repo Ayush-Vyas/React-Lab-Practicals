@@ -1,17 +1,16 @@
 function validateJson(req, res, next) {
 
-    if (
-        req.method === "POST" ||
-        req.method === "PUT"
-    ) {
+    // Allow CORS preflight requests
+    if (req.method === "OPTIONS") {
+        return next();
+    }
+
+    if (req.method === "POST" || req.method === "PUT") {
 
         if (!req.is("application/json")) {
 
             return res.status(400).json({
-
-                message:
-                    "Content-Type must be application/json",
-
+                message: "Content-Type must be application/json"
             });
 
         }

@@ -2,91 +2,137 @@ const express = require("express");
 
 const router = express.Router();
 
-let tasks = require("../data/tasks");
+const Task = require("../models/Task");
 
-// GET
+// GET ALL TASKS
+router.get("/", async (req, res) => {
 
-router.get("/", (req, res) => {
+    try {
 
-    res.status(200).json(tasks);
+        const tasks = await Task.find();
 
-});
+        res.status(200).json(tasks);
 
-// POST
+    } catch (error) {
 
-router.post("/", (req, res) => {
-
-    const task = {
-
-        id: Date.now(),
-
-        title: req.body.title,
-
-        completed: false,
-
-    };
-
-    tasks.push(task);
-
-    res.status(201).json(task);
-
-});
-
-// PUT
-
-router.put("/:id", (req, res) => {
-
-    const id = Number(req.params.id);
-
-    const task = tasks.find(t => t.id === id);
-
-    if (!task) {
-
-        return res.status(404).json({
-
-            message: "Task not found",
-
+        res.status(500).json({
+            message: error.message
         });
 
     }
 
-    task.title = req.body.title;
-
-    task.completed = req.body.completed;
-
-    res.status(200).json(task);
-
 });
 
-// DELETE
+// GET TASK BY ID
+router.get("/:id", async (req, res) => {
 
-router.delete("/:id", (req, res) => {
+    try {
 
-    const id = Number(req.params.id);
+        const task = await Task.findById(req.params.id);
 
-    const index = tasks.findIndex(
+        if (!task) {
 
-        t => t.id === id
+            return res.status(404).json({
+                message: "Task not found"
+            });
 
-    );
+        }
 
-    if (index === -1) {
+        res.status(200).json(task);
 
-        return res.status(404).json({
+    } catch (error) {
 
-            message: "Task not found",
-
+        res.status(404).json({
+            message: "Invalid Task ID"
         });
 
     }
 
-    tasks.splice(index, 1);
+});
 
-    res.status(200).json({
+// CREATE TASK
+router.post("/", async (req, res) => {
 
-        message: "Task deleted",
+    try {
 
-    });
+        const task = await Task.create(req.body);
+
+        res.status(201).json(task);
+
+    } catch (error) {
+
+        res.status(400).json({
+            message: error.message
+        });
+
+    }
+
+});
+
+// UPDATE TASK
+router.put("/:id", async (req, res) => {
+
+    try {
+
+        const task = await Task.findByIdAndUpdate(
+
+            req.params.id,
+
+            req.body,
+
+            {
+                new: true,
+                runValidators: true
+            }
+
+        );
+
+        if (!task) {
+
+            return res.status(404).json({
+                message: "Task not found"
+            });
+
+        }
+
+        res.status(200).json(task);
+
+    } catch (error) {
+
+        res.status(400).json({
+            message: error.message
+        });
+
+    }
+
+});
+
+// DELETE TASK
+router.delete("/:id", async (req, res) => {
+
+    try {
+
+        const task = await Task.findByIdAndDelete(req.params.id);
+
+        if (!task) {
+
+            return res.status(404).json({
+                message: "Task not found"
+            });
+
+        }
+
+        res.status(200).json({
+            message: "Task deleted successfully"
+        });
+
+    } catch (error) {
+
+        res.status(400).json({
+            message: error.message
+        });
+
+    }
 
 });
 
