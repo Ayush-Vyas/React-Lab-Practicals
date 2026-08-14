@@ -1,8 +1,8 @@
 function Loading() {
   return (
     <div className="card">
-      <h2>Loading...</h2>
-      <p>Please wait while repositories are being fetched.</p>
+      <h2>Loading Tasks...</h2>
+      <p>Please wait while your tasks are being fetched.</p>
     </div>
   );
 }
