@@ -14,6 +14,8 @@ const errorHandler = require("./middleware/errorHandler");
 
 const taskRoutes = require("./routes/tasks");
 
+const authRoutes = require("./routes/auth");
+
 const app = express();
 
 app.use(cors());
@@ -30,6 +32,7 @@ app.use(validateJson);
 
 // Routes
 app.use("/tasks", taskRoutes);
+app.use("/auth", authRoutes);
 
 // 404 Handler
 app.use((req, res) => {

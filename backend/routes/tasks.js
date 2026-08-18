@@ -4,6 +4,11 @@ const router = express.Router();
 
 const Task = require("../models/Task");
 
+const authMiddleware = require("../middleware/auth");
+const validateTask = require("../middleware/validateTask");
+
+router.use(authMiddleware);
+
 // GET ALL TASKS
 router.get("/", async (req, res) => {
 
@@ -51,7 +56,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // CREATE TASK
-router.post("/", async (req, res) => {
+router.post("/", validateTask, async (req, res) => {
 
     try {
 
@@ -70,7 +75,7 @@ router.post("/", async (req, res) => {
 });
 
 // UPDATE TASK
-router.put("/:id", async (req, res) => {
+router.put("/:id", validateTask, async (req, res) => {
 
     try {
 

@@ -4,6 +4,28 @@ import ErrorMessage from "../components/ErrorMessage";
 
 const API_URL = "http://localhost:5000/tasks";
 
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+};
+
+const handleUnauthorized = (response) => {
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    window.location.href = "/login";
+
+    return true;
+  }
+
+  return false;
+};
+
 function Projects() {
   const [tasks, setTasks] = useState([]);
 
@@ -22,11 +44,17 @@ function Projects() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(API_URL);
+      const response = await fetch(API_URL, {
+  headers: getAuthHeaders(),
+});
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch tasks");
-      }
+if (handleUnauthorized(response)) {
+  return;
+}
+
+if (!response.ok) {
+  throw new Error("Failed to fetch tasks");
+}
 
       const data = await response.json();
       setTasks(data);
@@ -56,18 +84,20 @@ function Projects() {
       setMessage("");
 
       const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          priority,
-        }),
-      });
+  method: "POST",
+  headers: getAuthHeaders(),
+  body: JSON.stringify({
+    title,
+    description,
+    priority,
+  }),
+});
 
-      const data = await response.json();
+if (handleUnauthorized(response)) {
+  return;
+}
+
+const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to create task");
@@ -95,16 +125,18 @@ function Projects() {
       setMessage("");
 
       const response = await fetch(`${API_URL}/${task._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          completed: !task.completed,
-        }),
-      });
+  method: "PUT",
+  headers: getAuthHeaders(),
+  body: JSON.stringify({
+    completed: !task.completed,
+  }),
+});
 
-      const data = await response.json();
+if (handleUnauthorized(response)) {
+  return;
+}
+
+const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to update task");
@@ -134,10 +166,15 @@ function Projects() {
       setMessage("");
 
       const response = await fetch(`${API_URL}/${id}`, {
-        method: "DELETE",
-      });
+  method: "DELETE",
+  headers: getAuthHeaders(),
+});
 
-      const data = await response.json();
+if (handleUnauthorized(response)) {
+  return;
+}
+
+const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to delete task");
