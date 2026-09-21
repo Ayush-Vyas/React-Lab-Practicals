@@ -1,3 +1,7 @@
+const dns = require("dns");
+
+dns.setServers(["8.8.8.8"]);
+
 const cors = require("cors");
 
 require("dotenv").config();
@@ -16,6 +20,8 @@ const taskRoutes = require("./routes/tasks");
 
 const authRoutes = require("./routes/auth");
 
+const cacheRoutes = require("./routes/cacheStats");
+
 const app = express();
 
 app.use(cors());
@@ -33,6 +39,7 @@ app.use(validateJson);
 // Routes
 app.use("/tasks", taskRoutes);
 app.use("/auth", authRoutes);
+app.use("/api/cache", cacheRoutes);
 
 // 404 Handler
 app.use((req, res) => {
