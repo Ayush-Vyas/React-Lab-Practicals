@@ -1,0 +1,17 @@
+{
+  "clientName": "Thunder Client",
+  "environmentName": "Practical 9 Local",
+  "environmentId": "p9-env",
+  "dateExported": "2026-09-21",
+  "version": "1.1",
+  "variables": [
+    {
+      "name": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTg0N2M2MjNlN2ZiOWNlNDk3NWU1OTEiLCJlbWFpbCI6ImF5dXNoQHRlc3QuY29tIiwiaWF0IjoxNzkwMDEwNzQxLCJleHAiOjE3OTA2MTU1NDF9.5b9ydWRQlrGrilzv7N2ZdtWADCTV3NEN9f96BoIJ-Lc"
+    },
+    {
+      "name": "taskId",
+      "value": "6ab1636fe51fc34e1e41f76c"
+    }
+  ]
+}

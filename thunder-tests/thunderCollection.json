@@ -1,0 +1,177 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "Practical 9 - Server-Side Caching",
+  "collectionId": "p9-caching-collection",
+  "dateExported": "2026-09-21",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "req-login",
+      "colId": "p9-caching-collection",
+      "name": "01 - Login (Get JWT Token)",
+      "url": "http://localhost:5000/auth/login",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"ayush@test.com\",\n  \"password\": \"password123\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "req-get-tasks-uncached",
+      "colId": "p9-caching-collection",
+      "name": "02 - Uncached GET /tasks",
+      "url": "http://localhost:5000/tasks",
+      "method": "GET",
+      "sortNum": 20000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    },
+    {
+      "_id": "req-get-tasks-cached",
+      "colId": "p9-caching-collection",
+      "name": "03 - Cached GET /tasks (Cache Hit)",
+      "url": "http://localhost:5000/tasks",
+      "method": "GET",
+      "sortNum": 30000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    },
+    {
+      "_id": "req-post-task",
+      "colId": "p9-caching-collection",
+      "name": "04 - POST /tasks (Create Task & Invalidate Cache)",
+      "url": "http://localhost:5000/tasks",
+      "method": "POST",
+      "sortNum": 40000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Practical 9 Verified Task\",\n  \"description\": \"Testing cache invalidation on create\",\n  \"priority\": \"high\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "req-verify-post",
+      "colId": "p9-caching-collection",
+      "name": "05 - Verify GET /tasks (Newly Created Task Appears)",
+      "url": "http://localhost:5000/tasks",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    },
+    {
+      "_id": "req-get-single",
+      "colId": "p9-caching-collection",
+      "name": "06 - GET /tasks/:id (Supplementary Item Cache)",
+      "url": "http://localhost:5000/tasks/{{taskId}}",
+      "method": "GET",
+      "sortNum": 60000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    },
+    {
+      "_id": "req-put-task",
+      "colId": "p9-caching-collection",
+      "name": "07 - PUT /tasks/:id (Update Task & Invalidate Caches)",
+      "url": "http://localhost:5000/tasks/{{taskId}}",
+      "method": "PUT",
+      "sortNum": 70000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Practical 9 Verified Task (UPDATED)\",\n  \"description\": \"Updated description\",\n  \"priority\": \"medium\",\n  \"completed\": true\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "req-delete-task",
+      "colId": "p9-caching-collection",
+      "name": "08 - DELETE /tasks/:id (Delete Task & Invalidate Caches)",
+      "url": "http://localhost:5000/tasks/{{taskId}}",
+      "method": "DELETE",
+      "sortNum": 80000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    },
+    {
+      "_id": "req-cache-stats",
+      "colId": "p9-caching-collection",
+      "name": "09 - Cache Stats (GET /api/cache/stats)",
+      "url": "http://localhost:5000/api/cache/stats",
+      "method": "GET",
+      "sortNum": 90000,
+      "created": "2026-09-21T22:45:00.000Z",
+      "modified": "2026-09-21T22:45:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    }
+  ]
+}
