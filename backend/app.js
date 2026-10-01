@@ -16,6 +16,9 @@ const validateJson = require("./middleware/validateJson");
 
 const errorHandler = require("./middleware/errorHandler");
 
+// Practical 10: Import event listeners once at server startup
+require("./listeners");
+
 const taskRoutes = require("./routes/tasks");
 
 const authRoutes = require("./routes/auth");

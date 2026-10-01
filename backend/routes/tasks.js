@@ -4,6 +4,7 @@ const router = express.Router();
 
 const Task = require("../models/Task");
 const cache = require("../config/cache");
+const taskEvents = require("../events");
 
 const authMiddleware = require("../middleware/auth");
 const validateTask = require("../middleware/validateTask");
@@ -87,7 +88,13 @@ router.post("/", validateTask, async (req, res) => {
         // Invalidate all_tasks cache only after successful database write
         cache.del("all_tasks");
 
+        console.log(`[API] Response sent at ${new Date().toISOString()}`);
         res.status(201).json(task);
+
+        taskEvents.emit("task-created", {
+            task,
+            user: req.user?.email || req.user?.name || req.body?.assignedUser || req.user?.userId || "ayushvyas172@gmail.com"
+        });
 
     } catch (error) {
 
@@ -162,6 +169,12 @@ router.delete("/:id", async (req, res) => {
 
         res.status(200).json({
             message: "Task deleted successfully"
+        });
+
+        taskEvents.emit("task-deleted", {
+            task,
+            user: req.user?.email || req.user?.name || req.user?.userId || "ayushvyas172@gmail.com",
+            deletedAt: new Date().toISOString()
         });
 
     } catch (error) {
