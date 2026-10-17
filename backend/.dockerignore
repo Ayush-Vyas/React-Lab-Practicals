@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+generate_screenshots.ps1
+test_practical10_output.json
+test_practical10_runner.js

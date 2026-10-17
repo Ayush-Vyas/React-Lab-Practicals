@@ -1,6 +1,8 @@
-const dns = require("dns");
-
-dns.setServers(["8.8.8.8"]);
+// DNS resolution: only override for MongoDB Atlas SRV if needed, preserving Docker container DNS
+if (process.env.MONGO_URI && process.env.MONGO_URI.startsWith("mongodb+srv://")) {
+    const dns = require("dns");
+    dns.setServers(["8.8.8.8"]);
+}
 
 const cors = require("cors");
 

@@ -1,0 +1,67 @@
+# ==============================================================================
+# Practical 11: Multi-Container Docker Application with Docker Compose
+# Services: Frontend (React+Vite on Nginx), Backend (Express.js), Database (MongoDB)
+# ==============================================================================
+
+services:
+  # 1. MongoDB Database Service with Named Persistent Volume
+  mongo:
+    image: mongo:7.0
+    container_name: task-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # 2. Express.js Backend Service connecting via service-name: mongodb://mongo:27017/taskdb
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: task-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/taskdb
+      - JWT_SECRET=practical7_super_secret_key_2026
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  # 3. React Frontend Service built via Vite and served with Nginx
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+# Isolated Custom Docker Bridge Network
+networks:
+  app-network:
+    driver: bridge
+
+# Named Volume for Database Persistence across container restarts
+volumes:
+  mongo-data:
+    driver: local
