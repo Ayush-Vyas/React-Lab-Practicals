@@ -4,7 +4,11 @@ import ErrorMessage from "../components/ErrorMessage";
 import { TASKS_API_URL as API_URL, AI_API_URL } from "../config/api";
 
 const getAuthHeaders = () => {
-  const token = localStorage.getItem("token");
+  const token =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("token") ||
+        localStorage.getItem("token")
+      : null;
 
   return {
     "Content-Type": "application/json",
@@ -106,6 +110,14 @@ if (!response.ok) {
   };
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get("token")) localStorage.setItem("token", p.get("token"));
+      if (p.get("title")) setTitle(p.get("title"));
+      if (p.get("description")) setDescription(p.get("description"));
+      if (p.get("error")) setAiError(p.get("error"));
+      if (p.get("disclaimer")) setAiDisclaimer(p.get("disclaimer"));
+    }
     fetchTasks();
   }, []);
 
