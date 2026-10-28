@@ -2,8 +2,8 @@ const validateTask = (req, res, next) => {
 
     const { title, description, completed, priority } = req.body;
 
-    // Title validation
-    if (title === undefined || title === null || title === "") {
+    // Title validation: required on POST; validated on PUT if provided
+    if (req.method === "POST" && (title === undefined || title === null || title === "")) {
 
         return res.status(400).json({
             message: "Title is required"
@@ -11,7 +11,7 @@ const validateTask = (req, res, next) => {
 
     }
 
-    if (typeof title !== "string") {
+    if (title !== undefined && typeof title !== "string") {
 
         return res.status(400).json({
             message: "Title must be a string"
@@ -19,7 +19,7 @@ const validateTask = (req, res, next) => {
 
     }
 
-    if (title.trim().length === 0) {
+    if (title !== undefined && title.trim().length === 0) {
 
         return res.status(400).json({
             message: "Title cannot be empty"

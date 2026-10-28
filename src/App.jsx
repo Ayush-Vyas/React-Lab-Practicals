@@ -5,11 +5,11 @@ import NavBar from "./components/NavBar";
 import Loading from "./components/Loading";
 
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 const Projects = lazy(() => import("./pages/Projects"));
 const Contact = lazy(() => import("./pages/Contact"));
+const Login = lazy(() => import("./pages/Login"));
 
 function App() {
   return (

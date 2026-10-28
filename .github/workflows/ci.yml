@@ -1,0 +1,42 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Automated Tests
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          cd backend && npm install
+
+      - name: Run automated tests
+        env:
+          PORT: 5001
+          MONGO_URI: mongodb://localhost:27017/taskdb_test
+          JWT_SECRET: practical7_super_secret_key_2026
+        run: npm test

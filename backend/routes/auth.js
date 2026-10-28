@@ -73,7 +73,6 @@ router.post("/register", async (req, res) => {
 
 });
 
-module.exports = router;
 
 // LOGIN
 router.post("/login", async (req, res) => {
@@ -148,6 +147,7 @@ router.post("/login", async (req, res) => {
 
 });
 
+
 // GET CURRENT USER
 router.get("/me", authMiddleware, async (req, res) => {
 
@@ -177,3 +177,5 @@ router.get("/me", authMiddleware, async (req, res) => {
     }
 
 });
+
+module.exports = router;

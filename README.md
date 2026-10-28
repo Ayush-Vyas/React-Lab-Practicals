@@ -1,8 +1,10 @@
 # Task Management Full-Stack Application
 
-## Practical 11: Containerization with Docker & Docker Compose
+[![CI Pipeline](https://github.com/Ayush-Vyas/React-Lab-Practicals/actions/workflows/ci.yml/badge.svg)](https://github.com/Ayush-Vyas/React-Lab-Practicals/actions/workflows/ci.yml)
 
-This project containerizes the complete full-stack Task Management application into a multi-container Docker architecture orchestrated with **Docker Compose**.
+## Overview
+
+A robust full-stack Task Management application featuring React 19, Express.js REST API, MongoDB/Mongoose persistence, JWT authentication, server-side caching, Docker Compose containerization, GitHub Actions CI/CD pipeline, and AI-powered task description generation.
 
 ---
 
@@ -91,3 +93,32 @@ This project containerizes the complete full-stack Task Management application i
    # Verify previous tasks remain intact in MongoDB
    docker compose ps
    ```
+
+---
+
+## Practical 12: Continuous Integration & Delivery (CI/CD)
+
+- **Workflow File**: `.github/workflows/ci.yml`
+- **Trigger**: Automatic on pushes and pull requests to `main`
+- **Execution Environment**: `ubuntu-latest` with Node.js 20 and MongoDB 7.0 container service
+- **Automated Test Suite**: Node.js native test runner verifying authentication guards, input validation, and API endpoints:
+  - `GET /tasks` unauthorized access rejection (401)
+  - `POST /tasks` validation rejection for missing title (400)
+  - `GET /api/cache/stats` cache performance metrics (200)
+  - `POST /api/ai/generate-description` title validation (400)
+- **Local Test Command**: `npm test`
+
+---
+
+## Practical 13: AI Task Description Generator
+
+- **Backend Route**: `POST /api/ai/generate-description`
+- **Provider Support**: Google Gemini API (`GEMINI_API_KEY`) and OpenAI (`OPENAI_API_KEY`)
+- **Security**: All API keys stored exclusively in backend `.env` (gitignored), placeholder template provided in `.env.example`
+- **Frontend Features**:
+  - One-click "✨ Generate Description (AI)" button in the Task Creation form
+  - Title presence verification and overwrite protection for existing descriptions
+  - Dynamic loading state with visual indicator during API calls
+  - Prominent AI content disclaimer ensuring human review before task submission
+  - Graceful fallback and error messaging without interrupting core CRUD operations
+

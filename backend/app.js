@@ -1,12 +1,12 @@
-// DNS resolution: only override for MongoDB Atlas SRV if needed, preserving Docker container DNS
+require("dotenv").config();
+
+// DNS resolution: override DNS servers for MongoDB Atlas SRV lookups on local networks, while preserving Docker internal resolution
 if (process.env.MONGO_URI && process.env.MONGO_URI.startsWith("mongodb+srv://")) {
     const dns = require("dns");
-    dns.setServers(["8.8.8.8"]);
+    dns.setServers(["8.8.8.8", "1.1.1.1"]);
 }
 
 const cors = require("cors");
-
-require("dotenv").config();
 
 const express = require("express");
 
@@ -27,6 +27,8 @@ const authRoutes = require("./routes/auth");
 
 const cacheRoutes = require("./routes/cacheStats");
 
+const aiRoutes = require("./routes/ai");
+
 const app = express();
 
 app.use(cors());
@@ -45,6 +47,7 @@ app.use(validateJson);
 app.use("/tasks", taskRoutes);
 app.use("/auth", authRoutes);
 app.use("/api/cache", cacheRoutes);
+app.use("/api/ai", aiRoutes);
 
 // 404 Handler
 app.use((req, res) => {
@@ -63,8 +66,10 @@ app.use(errorHandler);
 // Start Server
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+}
 
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-
-});
+module.exports = app;
