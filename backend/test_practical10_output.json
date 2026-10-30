@@ -1,0 +1,180 @@
+{
+  "timestamp": "2026-10-01T17:50:47.637Z",
+  "clientResponseTime": "2026-10-01T17:50:40.734Z",
+  "createdTask": {
+    "title": "Practical 10 Event-Driven Task",
+    "description": "Testing Node.js native EventEmitter async processing with 2000ms delay",
+    "completed": false,
+    "priority": "high",
+    "_id": "6abe9d70e1386a45f5b9dd9a",
+    "createdAt": "2026-10-01T17:50:40.705Z",
+    "__v": 0
+  },
+  "singleTask": {
+    "_id": "6abe9d70e1386a45f5b9dd9a",
+    "title": "Practical 10 Event-Driven Task",
+    "description": "Testing Node.js native EventEmitter async processing with 2000ms delay",
+    "completed": false,
+    "priority": "high",
+    "createdAt": "2026-10-01T17:50:40.705Z",
+    "__v": 0
+  },
+  "deleteData": {
+    "message": "Task deleted successfully"
+  },
+  "cacheStats": {
+    "message": "Authorization token is required"
+  },
+  "serverLogs": [
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:38.826Z",
+      "line": "◇ injected env (2) from .env // tip: ◈ secrets for agents [www.dotenvx.com]"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:39.291Z",
+      "line": "⚡ [TaskEvents] Event listeners registered successfully (task-created, task-deleted, error)"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:39.366Z",
+      "line": "🚀 Server running on http://localhost:5000"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:40.169Z",
+      "line": "✅ MongoDB Connected"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:40.340Z",
+      "line": "[1/10/2026, 11:20:40 pm] POST /auth/login"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:40.441Z",
+      "line": "[1/10/2026, 11:20:40 pm] GET /tasks"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:40.703Z",
+      "line": "[1/10/2026, 11:20:40 pm] POST /tasks"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:40.732Z",
+      "line": "[API] Response sent at 2026-10-01T17:50:40.731Z"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:40.735Z",
+      "line": "[Notification] task-created handler started at 2026-10-01T17:50:40.732Z"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:40.735Z",
+      "line": "[Notification] Task Title: \"Practical 10 Event-Driven Task\""
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:40.735Z",
+      "line": "[Notification] Assigned User: ayush@test.com"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:42.741Z",
+      "line": "[Notification] task-created handler completed at 2026-10-01T17:50:42.740Z"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:42.741Z",
+      "line": "[Notification] Background notification sent for task: \"Practical 10 Event-Driven Task\" to ayush@test.com"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:43.738Z",
+      "line": "[1/10/2026, 11:20:43 pm] GET /tasks/6abe9d70e1386a45f5b9dd9a"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:43.767Z",
+      "line": "[1/10/2026, 11:20:43 pm] DELETE /tasks/6abe9d70e1386a45f5b9dd9a"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:44.026Z",
+      "line": "[Notification] task-deleted event received at 2026-10-01T17:50:44.024Z"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:44.026Z",
+      "line": "[Notification] Task Deleted: ID=6abe9d70e1386a45f5b9dd9a, Title=\"Practical 10 Event-Driven Task\""
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:44.026Z",
+      "line": "[Notification] Action Performed By User: ayush@test.com"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:45.030Z",
+      "line": "[1/10/2026, 11:20:45 pm] POST /tasks"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:45.056Z",
+      "line": "[API] Response sent at 2026-10-01T17:50:45.055Z"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:45.058Z",
+      "line": "[Notification] task-created handler started at 2026-10-01T17:50:45.056Z"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:45.058Z",
+      "line": "[Notification] Task Title: \"[simulate-error] Async Processing Failure Test\""
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:45.058Z",
+      "line": "[Notification] Assigned User: ayush@test.com"
+    },
+    {
+      "type": "stderr",
+      "time": "2026-10-01T17:50:45.059Z",
+      "line": "[TaskEvents] [Error Handled Safely] 2026-10-01T17:50:45.056Z: Simulated async background processing error for task: \"[simulate-error] Async Processing Failure Test\""
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:46.565Z",
+      "line": "[1/10/2026, 11:20:46 pm] DELETE /tasks/6abe9d75e1386a45f5b9dd9b"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:46.594Z",
+      "line": "[Notification] task-deleted event received at 2026-10-01T17:50:46.592Z"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:46.594Z",
+      "line": "[Notification] Task Deleted: ID=6abe9d75e1386a45f5b9dd9b, Title=\"[simulate-error] Async Processing Failure Test\""
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:46.594Z",
+      "line": "[Notification] Action Performed By User: ayush@test.com"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:47.597Z",
+      "line": "[1/10/2026, 11:20:47 pm] GET /api/cache/stats"
+    },
+    {
+      "type": "stdout",
+      "time": "2026-10-01T17:50:47.601Z",
+      "line": "[1/10/2026, 11:20:47 pm] GET /tasks"
+    }
+  ]
+}
